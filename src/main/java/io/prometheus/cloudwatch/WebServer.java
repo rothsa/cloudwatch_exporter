@@ -81,7 +81,7 @@ public class WebServer {
           context.addServlet(new ServletHolder(new HomePageServlet()), "/");
           server.start();
         } catch (Exception e) {
-          LOGGER.log(Level.SEVERE, String.format("failed to start sever on port %d", port));
+          LOGGER.log(Level.SEVERE, String.format("failed to start server on port %d", port));
           LOGGER.log(Level.SEVERE, e.toString());
           System.exit(1);
         } finally {
