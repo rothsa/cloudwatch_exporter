@@ -57,15 +57,19 @@ public class WebServer {
 
         CloudWatchCollector collector = null;
         FileReader reader = null;
+        
         try {
           reader = new FileReader(configFilePath);
           collector = new CloudWatchCollector(new FileReader(configFilePath)).register();
-          reader.close();
           ReloadSignalHandler.start(collector);
         } catch (Exception e) {
           LOGGER.log(Level.SEVERE, "failed to start collector");
           LOGGER.log(Level.SEVERE, e.toString());
           System.exit(1);
+        } finally {
+          if (reader != null) {
+            reader.close();
+          }
         }
 
         Server server = null;
@@ -87,7 +91,6 @@ public class WebServer {
         } finally {
           server.join();
         }
-
     }
 }
 
